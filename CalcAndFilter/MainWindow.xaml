@@ -1,0 +1,70 @@
+﻿<Window x:Class="CalcAndFilter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CalcAndFilter"
+        mc:Ignorable="d"
+        Title="计算与筛选系统"  Width="1024" Height="768">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="500*"/>
+            <ColumnDefinition Width="400*"/>
+            <ColumnDefinition Width="400*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical" Grid.Column="0" Margin="10">
+            <GroupBox Header=" 公式一: " Height="200"  Padding="10 5">
+                <StackPanel DataContext="{Binding Path=ClacModel1}">
+                    <TextBox Height="145" VerticalScrollBarVisibility="Visible"
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
+                             Text="{Binding Path=CalcContent, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <StackPanel Orientation="Horizontal" Margin="0 5">
+                        <CheckBox IsChecked="{Binding Path=IsBitwise}" Checked="CheckBox_Checked">是否按位计算</CheckBox>
+                        <CheckBox Margin="10 0" IsChecked="{Binding Path=IsContinuous}">结果是否连续</CheckBox>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header=" 公式二: " Height="200"  Padding="10 5">
+                <StackPanel>
+                    <RichTextBox Height="145" VerticalScrollBarVisibility="Visible"></RichTextBox>
+                    <StackPanel Orientation="Horizontal" Margin="0 5">
+                        <CheckBox>是否按位计算</CheckBox>
+                        <CheckBox Margin="10 0">结果是否连续</CheckBox>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header=" 公式三: " Height="200"  Padding="10 5">
+                <StackPanel>
+                    <RichTextBox Height="145" VerticalScrollBarVisibility="Visible"></RichTextBox>
+                    <StackPanel Orientation="Horizontal" Margin="0 5">
+                        <CheckBox>是否为公式</CheckBox>
+                        <CheckBox Margin="10 0">是否按位计算</CheckBox>
+                        <CheckBox Margin="10 0">结果是否连续</CheckBox>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header=" 筛选数值 " Height="100" Padding="10 5" >
+                <RichTextBox VerticalScrollBarVisibility="Visible"></RichTextBox>
+            </GroupBox>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Column="1" Margin="10">
+            <GroupBox Header=" 公式一结果: " Height="200"  Padding="10 5">
+                <StackPanel>
+                    <RichTextBox Height="145" VerticalScrollBarVisibility="Visible"></RichTextBox>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header=" 公式二结果: " Height="200"  Padding="10 5">
+                <StackPanel>
+                    <RichTextBox Height="145" VerticalScrollBarVisibility="Visible"></RichTextBox>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header=" 公式三结果: " Height="200"  Padding="10 5">
+                <StackPanel>
+                    <RichTextBox Height="145" VerticalScrollBarVisibility="Visible"></RichTextBox>
+                </StackPanel>
+            </GroupBox>
+
+        </StackPanel>
+    </Grid>
+</Window>
