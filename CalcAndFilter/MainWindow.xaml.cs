@@ -30,5 +30,23 @@ namespace CalcAndFilter
         {
             viewModel.ClacModel1.CalcContent = System.Text.Json.JsonSerializer.Serialize(viewModel.ClacModel1);
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void TextBox3_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(sender is TextBox textBox)
+            {
+                viewModel.ClacModel3.IsFormula = textBox.Text.Contains("*");
+            }
+        }
+
+        private void Btn_Calc_Click(object sender, RoutedEventArgs e)
+        {
+             viewModel.ClacModel1.CalcContent.Split('*');
+        }
     }
 }

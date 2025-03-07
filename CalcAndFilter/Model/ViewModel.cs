@@ -28,7 +28,7 @@ namespace CalcAndFilter.Model
             ClacModel1 = new ClacModel();
             ClacModel2 = new ClacModel();
             ClacModel3 = new ClacModel();
-            Filter = "";
+            filter = "";
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -42,13 +42,21 @@ namespace CalcAndFilter.Model
     {
         public ClacModel()
         {
-            CalcContent = "";
-            CalcResult = "";
-            IsFormula = false;
-            IsBitwise = false;
-            IsContinuous = false;
+            calcContent = "";
+            calcResult = "";
+            isFormula = false;
+            isBitwise = false;
+            isContinuous = false;
         }
         private string calcContent;
+        private string calcResult;
+        private bool isFormula;
+        private bool isBitwise;
+        private bool isContinuous;
+
+        /// <summary>
+        /// 计算内容
+        /// </summary>
         public string CalcContent
         {
             get { return calcContent; }
@@ -58,7 +66,9 @@ namespace CalcAndFilter.Model
                 OnPropertyChanged(nameof(CalcContent));
             }
         }
-        private string calcResult;
+        /// <summary>
+        /// 计算结果
+        /// </summary>
         public string CalcResult
         {
             get { return calcResult; }
@@ -68,7 +78,9 @@ namespace CalcAndFilter.Model
                 OnPropertyChanged(nameof(CalcResult));
             }
         }
-        private bool isFormula;
+        /// <summary>
+        /// 是否是公式
+        /// </summary>
         public bool IsFormula
         {
             get { return isFormula; }
@@ -78,7 +90,9 @@ namespace CalcAndFilter.Model
                 OnPropertyChanged(nameof(IsFormula));
             }
         }
-        private bool isBitwise;
+        /// <summary>
+        /// 是否是位运算
+        /// </summary>
         public bool IsBitwise
         {
             get { return isBitwise; }
@@ -88,7 +102,9 @@ namespace CalcAndFilter.Model
                 OnPropertyChanged(nameof(IsBitwise));
             }
         }
-        private bool isContinuous;
+        /// <summary>
+        /// 结果是否连续
+        /// </summary>
         public bool IsContinuous
         {
             get { return isContinuous; }
