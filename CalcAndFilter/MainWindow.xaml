@@ -24,7 +24,7 @@
                 <StackPanel DataContext="{Binding Path=ClacModel1}">
                     <TextBox Height="145" VerticalScrollBarVisibility="Visible"
                              TextWrapping="Wrap"
-                             AcceptsReturn="True" Text=""/>
+                             AcceptsReturn="True" Text="{Binding CalcContent}"/>
                     <StackPanel Orientation="Horizontal" Margin="0 5">
                         <CheckBox IsChecked="{Binding Path=IsBitwise}">是否按位计算</CheckBox>
                         <CheckBox Margin="10 0" IsChecked="{Binding Path=IsContinuous}">结果是否连续</CheckBox>
@@ -63,8 +63,8 @@
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Column="1" Margin="10">
             <GroupBox Header=" 公式一结果: " Height="200"  Padding="10 5">
-                <StackPanel>
-                    <RichTextBox Height="145" VerticalScrollBarVisibility="Visible"></RichTextBox>
+                <StackPanel DataContext="{Binding Path=ClacModel1}">
+                    <RichTextBox x:Name="calc_result_1" Height="145" VerticalScrollBarVisibility="Visible"></RichTextBox>
                 </StackPanel>
             </GroupBox>
             <GroupBox Header=" 公式二结果: " Height="200"  Padding="10 5">

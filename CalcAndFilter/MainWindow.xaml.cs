@@ -46,7 +46,14 @@ namespace CalcAndFilter
 
         private void Btn_Calc_Click(object sender, RoutedEventArgs e)
         {
-             viewModel.ClacModel1.CalcContent.Split('*');
+            // MessageBox.Show(viewModel.ClacModel1.CalcContent);
+            this.Dispatcher.InvokeAsync(async () => {
+                await viewModel.ClacModel1.CalcAsync();
+                var paragraph = new Paragraph();
+                paragraph.Inlines.Add(new Run(viewModel.ClacModel1.CalcResult));
+                calc_result_1.Document.Blocks.Add(paragraph);
+            });
+
         }
     }
 }
