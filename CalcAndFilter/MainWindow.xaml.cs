@@ -1,4 +1,7 @@
-﻿using CalcAndFilter.Model;
+﻿using CalcAndFilter.Helper;
+using CalcAndFilter.Model;
+
+using Microsoft.Win32;
 
 using System.Text;
 using System.Windows;
@@ -24,6 +27,15 @@ namespace CalcAndFilter
             InitializeComponent();
             viewModel = new ViewModel();
             this.DataContext = viewModel;
+
+#if DEBUG
+            viewModel.ClacModel1.CalcContent = "123*3.14159";
+            viewModel.ClacModel1.IsBitwise = true;
+            viewModel.ClacModel2.CalcContent = "123*3.141592";
+            viewModel.ClacModel2.IsBitwise = true;
+            viewModel.ClacModel3.CalcContent = "123*3.1415926";
+            viewModel.ClacModel3.IsBitwise = true;
+#endif
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
@@ -38,7 +50,7 @@ namespace CalcAndFilter
 
         private void TextBox3_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(sender is TextBox textBox)
+            if (sender is TextBox textBox)
             {
                 viewModel.ClacModel3.IsFormula = textBox.Text.Contains("*");
             }
@@ -46,14 +58,51 @@ namespace CalcAndFilter
 
         private void Btn_Calc_Click(object sender, RoutedEventArgs e)
         {
-            // MessageBox.Show(viewModel.ClacModel1.CalcContent);
-            this.Dispatcher.InvokeAsync(async () => {
-                await viewModel.ClacModel1.CalcAsync();
-                var paragraph = new Paragraph();
-                paragraph.Inlines.Add(new Run(viewModel.ClacModel1.CalcResult));
-                calc_result_1.Document.Blocks.Add(paragraph);
+            this.Dispatcher.InvokeAsync(async () =>
+            {
+                await ResetContent(calc_result_1, viewModel.ClacModel1);
+                await ResetContent(calc_result_2, viewModel.ClacModel2);
+                await ResetContent(calc_result_3, viewModel.ClacModel3);
+                await viewModel.SumCalcAsync();
+                calc_result_4.RichTextWriteList(viewModel.CalcARecords);
+                calc_result_5.RichTextWriteList(viewModel.CalcBRecords);
             });
 
+        }
+
+        private async static Task ResetContent(RichTextBox richTextBox, ClacModel clacModel)
+        {
+            await clacModel.CalcAsync();
+            richTextBox.RichTextWriteList(clacModel.calcRecords);
+        }
+
+
+        private void FilterButton_Click(object sender, RoutedEventArgs e)
+        {
+            var keyWords = viewModel.Filter.Split(',');
+            if (keyWords.Length == 0)
+            {
+                return;
+            }
+            this.Dispatcher.Invoke(() =>
+            {
+                if (viewModel.CalcARecords.Count > 0) { calc_result_4.FindFilter(keyWords); }
+                if (viewModel.CalcBRecords.Count > 0) { calc_result_5.FindFilter(keyWords); }
+            });
+        }
+
+        private void ExportButton_Click(object sender, RoutedEventArgs e)
+        {
+            // calc_result_5 Export to Word
+            SaveFileDialog saveFileDialog = new()
+            {
+                Filter = "Word RTF 文档|*.rtf"
+            };
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                calc_result_5.ExportToWord(saveFileDialog.FileName);
+            }
         }
     }
 }

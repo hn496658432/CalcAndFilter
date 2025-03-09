@@ -12,6 +12,8 @@ namespace CalcAndFilter.Model
     {
         public ClacModel ClacModel1 { get; set; }
         public ClacModel ClacModel2 { get; set; }
+        public IList<double> CalcARecords { get; set; }
+        public IList<double> CalcBRecords { get; set; }
         public ClacModel ClacModel3 { get; set; }
         private string filter;
         public string Filter
@@ -30,12 +32,22 @@ namespace CalcAndFilter.Model
             ClacModel2 = new ClacModel();
             ClacModel3 = new ClacModel();
             filter = "";
+            CalcARecords = [];
+            CalcBRecords = [];
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        // 汇总结果一和结果二
+        public Task SumCalcAsync(bool asc = true)
+        {
+            CalcARecords = [.. ClacModel1.calcRecords.SelectMany(a => ClacModel2.calcRecords, (a, b) => a * b)];
+            CalcBRecords = [.. ClacModel3.calcRecords.SelectMany(a => CalcARecords, (a, b) => a * b)];
+            return Task.CompletedTask;
         }
     }
 
@@ -48,14 +60,14 @@ namespace CalcAndFilter.Model
             isFormula = false;
             isBitwise = false;
             isContinuous = false;
-            calcHistory = new List<double>();
+            calcRecords = [];
         }
         private string calcContent;
         private string calcResult;
         private bool isFormula;
         private bool isBitwise;
         private bool isContinuous;
-        private ICollection<double> calcHistory;
+        public ICollection<double> calcRecords;
 
         /// <summary>
         /// 计算内容
@@ -140,24 +152,27 @@ namespace CalcAndFilter.Model
                         {
                             continue;
                         }
-                        calcHistory.Add(double.Parse(exp_1) * double.Parse(exp_2[..i]));
+                        calcRecords.Add(double.Parse(exp_1) * double.Parse(exp_2[..i]));
                     }
 
                 }
                 else
                 {
                     var result = double.Parse(exp_1) * double.Parse(exp_2);
-                    calcHistory.Add(result);
+                    calcRecords.Add(result);
                 }
             }
             else
             {
-                calcHistory.Add(double.Parse(calcContent));
+                calcRecords.Add(double.Parse(calcContent));
             }
 
             var link = isContinuous ? " " : "\r\n";
-            this.CalcResult = string.Join(link, calcHistory);
+            this.calcResult = string.Join(link, calcRecords);
             return Task.CompletedTask;
         }
+
+
+
     }
 }
