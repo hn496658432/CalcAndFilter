@@ -12,8 +12,8 @@ namespace CalcAndFilter.Model
     {
         public ClacModel ClacModel1 { get; set; }
         public ClacModel ClacModel2 { get; set; }
-        public IList<double> CalcARecords { get; set; }
-        public IList<double> CalcBRecords { get; set; }
+        public IList<decimal> CalcARecords { get; set; }
+        public IList<decimal> CalcBRecords { get; set; }
         public ClacModel ClacModel3 { get; set; }
         private string filter;
         public string Filter
@@ -67,7 +67,7 @@ namespace CalcAndFilter.Model
         private bool isFormula;
         private bool isBitwise;
         private bool isContinuous;
-        public ICollection<double> calcRecords;
+        public ICollection<decimal> calcRecords;
 
         /// <summary>
         /// 计算内容
@@ -152,19 +152,19 @@ namespace CalcAndFilter.Model
                         {
                             continue;
                         }
-                        calcRecords.Add(double.Parse(exp_1) * double.Parse(exp_2[..i]));
+                        calcRecords.Add(decimal.Parse(exp_1) * decimal.Parse(exp_2[..i]));
                     }
 
                 }
                 else
                 {
-                    var result = double.Parse(exp_1) * double.Parse(exp_2);
+                    var result = decimal.Parse(exp_1) * decimal.Parse(exp_2);
                     calcRecords.Add(result);
                 }
             }
             else
             {
-                calcRecords.Add(double.Parse(calcContent));
+                calcRecords.Add(decimal.Parse(calcContent));
             }
 
             var link = isContinuous ? " " : "\r\n";

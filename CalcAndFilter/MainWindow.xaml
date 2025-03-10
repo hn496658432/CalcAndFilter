@@ -80,8 +80,8 @@
             <GroupBox Header=" 查找数值： " Height="100" Padding="10 5">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" >
-                        <TextBox Width="150" VerticalContentAlignment="Center" />
-                        <Button Margin="10 0" Height="25" Width="80">
+                        <TextBox Width="150" x:Name="searchbox" VerticalContentAlignment="Center" />
+                        <Button Margin="10 0" Height="25" Width="80" Click="SeachButton_Click">
                             <Button.Background>
                                 <RadialGradientBrush>
                                     <GradientStop Color="#FF7DA5E1" Offset="1"/>

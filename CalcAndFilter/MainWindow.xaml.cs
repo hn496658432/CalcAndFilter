@@ -104,5 +104,19 @@ namespace CalcAndFilter
                 calc_result_5.ExportToWord(saveFileDialog.FileName);
             }
         }
+
+        private void SeachButton_Click(object sender, RoutedEventArgs e)
+        {
+            var keyword = searchbox.Text;
+            if (string.IsNullOrEmpty(keyword))
+            {
+                return;
+            }
+
+            this.Dispatcher.Invoke(() =>
+            {
+                calc_result_5.SearchNext(keyword);
+            });
+        }
     }
 }
