@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ExtendedNumerics;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -23,7 +25,7 @@ namespace CalcAndFilter.Helper
             richTextBox.Document.Blocks.Add(paragraph);
         }
 
-        public static void RichTextWriteList(this RichTextBox richTextBox, IEnumerable<decimal> list)
+        public static void RichTextWriteList(this RichTextBox richTextBox, IEnumerable<BigDecimal> list)
         {
             for (int i = 0; i < list.Count(); i++)
             {

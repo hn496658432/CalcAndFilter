@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ExtendedNumerics;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,8 +14,8 @@ namespace CalcAndFilter.Model
     {
         public ClacModel ClacModel1 { get; set; }
         public ClacModel ClacModel2 { get; set; }
-        public IList<decimal> CalcARecords { get; set; }
-        public IList<decimal> CalcBRecords { get; set; }
+        public IList<BigDecimal> CalcARecords { get; set; }
+        public IList<BigDecimal> CalcBRecords { get; set; }
         public ClacModel ClacModel3 { get; set; }
         private string filter;
         public string Filter
@@ -67,7 +69,7 @@ namespace CalcAndFilter.Model
         private bool isFormula;
         private bool isBitwise;
         private bool isContinuous;
-        public ICollection<decimal> calcRecords;
+        public ICollection<BigDecimal> calcRecords;
 
         /// <summary>
         /// 计算内容
@@ -152,19 +154,19 @@ namespace CalcAndFilter.Model
                         {
                             continue;
                         }
-                        calcRecords.Add(decimal.Parse(exp_1) * decimal.Parse(exp_2[..i]));
+                        calcRecords.Add(BigDecimal.Parse(exp_1) * BigDecimal.Parse(exp_2[..i]));
                     }
 
                 }
                 else
                 {
-                    var result = decimal.Parse(exp_1) * decimal.Parse(exp_2);
+                    var result = BigDecimal.Parse(exp_1) * BigDecimal.Parse(exp_2);
                     calcRecords.Add(result);
                 }
             }
             else
             {
-                calcRecords.Add(decimal.Parse(calcContent));
+                calcRecords.Add(BigDecimal.Parse(calcContent));
             }
 
             var link = isContinuous ? " " : "\r\n";
