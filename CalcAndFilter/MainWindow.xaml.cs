@@ -29,7 +29,7 @@ namespace CalcAndFilter
             this.DataContext = viewModel;
 
 #if DEBUG
-            viewModel.ClacModel1.CalcContent = "1231231231231123*3.1415926";
+            viewModel.ClacModel1.CalcContent = "1231231231231123*3.14159261231234461263541625341625436512436514263514263514263541263541625334615234";
             viewModel.ClacModel1.IsBitwise = true;
             viewModel.ClacModel2.CalcContent = "123*3.141592";
             viewModel.ClacModel2.IsBitwise = true;
