@@ -47,6 +47,9 @@ namespace CalcAndFilter.Model
         // 汇总结果一和结果二
         public Task SumCalcAsync(bool asc = true)
         {
+            CalcARecords.Clear();
+            CalcBRecords.Clear();
+
             CalcARecords = [.. ClacModel1.calcRecords.SelectMany(a => ClacModel2.calcRecords, (a, b) => a * b)];
             CalcBRecords = [.. ClacModel3.calcRecords.SelectMany(a => CalcARecords, (a, b) => a * b)];
             return Task.CompletedTask;
@@ -140,6 +143,7 @@ namespace CalcAndFilter.Model
 
         public Task CalcAsync(bool asc = true)
         {
+            calcRecords.Clear();
             var expression = calcContent.Split('*');
             IsFormula = calcContent.Contains('*') && expression.Length == 2;
             if (isFormula)
